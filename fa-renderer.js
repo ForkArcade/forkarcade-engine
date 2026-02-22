@@ -104,7 +104,7 @@
   // ===== SPRITE RUNTIME =====
 
   window.drawSprite = function(ctx, spriteDef, x, y, size, frame) {
-    if (!spriteDef) return false;
+    if (!spriteDef || !spriteDef.frames || !spriteDef.frames.length) return false;
     frame = frame || 0;
     frame = frame % spriteDef.frames.length;
     var key = size + '_' + frame;
@@ -255,12 +255,17 @@
     },
 
     pushAlpha: function(alpha) {
-      _ctx._prevAlpha = _ctx.globalAlpha;
+      if (!_ctx._alphaStack) _ctx._alphaStack = [];
+      _ctx._alphaStack.push(_ctx.globalAlpha);
       _ctx.globalAlpha = alpha;
     },
 
     popAlpha: function() {
-      _ctx.globalAlpha = _ctx._prevAlpha !== undefined ? _ctx._prevAlpha : 1;
+      if (_ctx._alphaStack && _ctx._alphaStack.length > 0) {
+        _ctx.globalAlpha = _ctx._alphaStack.pop();
+      } else {
+        _ctx.globalAlpha = 1;
+      }
     },
 
     withClip: function(clipFn, drawFn) {

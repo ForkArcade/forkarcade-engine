@@ -56,6 +56,7 @@
   // ===== FRAME RESET =====
 
   FA.clearInput = function() {
+    _keys = {};
     _justPressed = {};
     _mouseClicked = false;
   };
