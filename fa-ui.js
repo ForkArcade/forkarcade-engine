@@ -406,7 +406,7 @@
     ui.overlay(T.overlayAlpha);
 
     var title = data.title || (data.victory ? 'VICTORY' : 'DEFEAT');
-    var titleColor = data.victory ? T.success : T.danger;
+    var titleColor = data.titleColor || (data.victory ? T.success : T.danger);
     _drawText(title, cx, H * 0.25, { color: titleColor, size: T.titleSize, bold: true });
 
     if (data.score != null) {
@@ -417,7 +417,8 @@
     var sy = H * 0.5;
     for (var i = 0; i < stats.length; i++) {
       var s = stats[i];
-      _drawText(s.label + ': ' + s.value, cx, sy + i * 22, { color: s.color || T.textDim, size: T.bodySize });
+      var statText = (s.value != null && s.value !== '') ? s.label + ': ' + s.value : s.label;
+      _drawText(statText, cx, sy + i * 22, { color: s.color || T.textDim, size: T.bodySize });
     }
 
     if (data.message) {
@@ -455,8 +456,6 @@
 
     var clicked = null;
     var oy = by + 56;
-
-    ui.frame(); // capture click state for buttons
 
     for (var i = 0; i < options.length; i++) {
       var opt = options[i];
