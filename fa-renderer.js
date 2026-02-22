@@ -37,6 +37,11 @@
       return _layoutCache;
     }
 
+    if (cfg.type === 'free') {
+      _layoutCache = { W: cw, H: ch, ts: 0, ox: 0, oy: 0, mapW: cw, mapH: ch, panelX: 0, panelY: 0, panelW: 0, panelH: 0, cols: 0, rows: 0 };
+      return _layoutCache;
+    }
+
     var panelSide = cfg.panel || 'bottom';
     var panelSize = cfg.panelSize || 0;
     var mapAreaW = panelSide === 'right' ? cw - panelSize : cw;
