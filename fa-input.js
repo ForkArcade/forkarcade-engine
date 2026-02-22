@@ -117,6 +117,13 @@
     FA.emit('input:click', { x: _clickX, y: _clickY });
   });
 
+  window.addEventListener('blur', function() {
+    _keys = {};
+    _justPressed = {};
+    _mouseX = -9999;
+    _mouseY = -9999;
+  });
+
   FA.on('state:reset', function() {
     _keys = {};
     _justPressed = {};

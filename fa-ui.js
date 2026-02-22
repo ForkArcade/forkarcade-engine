@@ -150,7 +150,8 @@
     var padding = opts.padding || 0;
     var x = opts.x != null ? opts.x : (parent ? parent.curX : 0);
     var y = opts.y != null ? opts.y : (parent ? parent.curY : 0);
-    var w = opts.w != null ? opts.w : (parent ? parent.contentW : (FA.getCanvas ? FA.getCanvas().width : 800));
+    var cvs = FA.getCanvas ? FA.getCanvas() : null;
+    var w = opts.w != null ? opts.w : (parent ? parent.contentW : (cvs ? cvs.width : 800));
     var h = opts.h || 0;
 
     if (opts.bg) FA.draw.rect(x, y, w, h, opts.bg);
