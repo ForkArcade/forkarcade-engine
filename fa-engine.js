@@ -44,6 +44,9 @@
 
   FA.resetState = function(initial) {
     _state = initial || {};
+    var resetListeners = _listeners['state:reset'];
+    _listeners = {};
+    if (resetListeners) _listeners['state:reset'] = resetListeners;
     FA.emit('state:reset', _state);
   };
 

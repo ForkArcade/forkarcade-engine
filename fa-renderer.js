@@ -15,6 +15,7 @@
     _canvas.width = width;
     _canvas.height = height;
     _ctx = _canvas.getContext('2d');
+    _layoutCache = null;
     return _ctx;
   };
 
@@ -27,6 +28,7 @@
   var _layoutW = 0, _layoutH = 0;
 
   FA.getLayout = function() {
+    if (!_canvas) return { W: 0, H: 0, ts: 0, ox: 0, oy: 0, mapW: 0, mapH: 0, panelX: 0, panelY: 0, panelW: 0, panelH: 0, cols: 0, rows: 0 };
     var cw = _canvas.width, ch = _canvas.height;
     if (cw === _layoutW && ch === _layoutH && _layoutCache) return _layoutCache;
     _layoutW = cw; _layoutH = ch;
@@ -109,6 +111,7 @@
     frame = frame % spriteDef.frames.length;
     var key = size + '_' + frame;
     if (!spriteDef._c) spriteDef._c = {};
+    if (Object.keys(spriteDef._c).length > 50) spriteDef._c = {};
     if (!spriteDef._c[key]) {
       var cv = document.createElement('canvas');
       cv.width = size;

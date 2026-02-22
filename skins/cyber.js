@@ -6,6 +6,7 @@
 
   var _scanCache = null;
   var _scanW = 0, _scanH = 0;
+  FA.on('state:reset', function() { _scanCache = null; _scanW = 0; _scanH = 0; });
 
   function scanlines(ctx, W, H) {
     if (!_scanCache || _scanW !== W || _scanH !== H) {
