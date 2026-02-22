@@ -78,11 +78,16 @@
   }
 
   function _lighten(hex, amount) {
+    if (!hex || hex[0] !== '#') return hex || '#fff';
     var h = hex.replace('#', '');
     if (h.length === 3) h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2];
-    var r = Math.min(255, parseInt(h.substr(0, 2), 16) + Math.round(amount * 255));
-    var g = Math.min(255, parseInt(h.substr(2, 2), 16) + Math.round(amount * 255));
-    var b = Math.min(255, parseInt(h.substr(4, 2), 16) + Math.round(amount * 255));
+    var r = parseInt(h.substr(0, 2), 16);
+    var g = parseInt(h.substr(2, 2), 16);
+    var b = parseInt(h.substr(4, 2), 16);
+    if (isNaN(r) || isNaN(g) || isNaN(b)) return hex;
+    r = Math.min(255, r + Math.round(amount * 255));
+    g = Math.min(255, g + Math.round(amount * 255));
+    b = Math.min(255, b + Math.round(amount * 255));
     return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
   }
 

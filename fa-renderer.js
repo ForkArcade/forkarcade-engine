@@ -147,8 +147,9 @@
       spriteDef._c[key] = cv;
     }
     var origin = spriteDef.origin || [0, 0];
-    var ox = origin[0] * (size / spriteDef.w);
-    var oy = origin[1] * (size / spriteDef.h);
+    var sw = spriteDef.w || size, sh = spriteDef.h || size;
+    var ox = origin[0] * (size / sw);
+    var oy = origin[1] * (size / sh);
     ctx.drawImage(spriteDef._c[key], x - ox, y - oy);
     return true;
   };
