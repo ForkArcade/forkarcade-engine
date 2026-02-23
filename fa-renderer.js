@@ -120,9 +120,9 @@
       var frameData = spriteDef.frames[frame];
       if (typeof frameData === 'number') {
         // Spritesheet mode: frame index into SPRITESHEET image
-        var sheet = typeof SPRITESHEET !== 'undefined' ? SPRITESHEET : null;
+        var sheet = FA.assets.spritesheet;
         if (sheet && sheet.complete && sheet.naturalWidth > 0) {
-          var sheetCols = typeof SPRITE_SHEET_COLS !== 'undefined' ? SPRITE_SHEET_COLS : 16;
+          var sheetCols = FA.assets.sheetCols;
           var sx = (frameData % sheetCols) * spriteDef.w;
           var sy = Math.floor(frameData / sheetCols) * spriteDef.h;
           cc.drawImage(sheet, sx, sy, spriteDef.w, spriteDef.h, 0, 0, size, size);
@@ -155,7 +155,8 @@
   };
 
   window.getSprite = function(category, name) {
-    return typeof SPRITE_DEFS !== 'undefined' && SPRITE_DEFS[category] && SPRITE_DEFS[category][name] || null;
+    var defs = FA.assets.spriteDefs;
+    return defs && defs[category] && defs[category][name] || null;
   };
 
   window.spriteFrames = function(spriteDef) {

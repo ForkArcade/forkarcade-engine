@@ -8,6 +8,9 @@
 
   FA.ENGINE_VERSION = 1;
 
+  // ===== ASSET STORE =====
+  FA.assets = { spriteDefs: null, spritesheet: null, sheetCols: 16, mapDefs: null };
+
   // ===== EVENT BUS =====
 
   var _listeners = {};

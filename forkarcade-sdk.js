@@ -56,27 +56,24 @@
     }
 
     if (data.type === 'FA_SPRITES_UPDATE') {
-      if (data.sheetDataUrl && typeof SPRITESHEET !== 'undefined') {
-        SPRITESHEET.src = data.sheetDataUrl;
-        if (data.sheetCols) SPRITE_SHEET_COLS = data.sheetCols;
-      }
-      if (data.sprites && typeof SPRITE_DEFS !== 'undefined') {
-        SPRITE_DEFS = data.sprites;
-        for (var cat in SPRITE_DEFS) {
-          for (var name in SPRITE_DEFS[cat]) {
-            if (SPRITE_DEFS[cat][name]._c) delete SPRITE_DEFS[cat][name]._c;
+      var sprites = data.sprites;
+      if (sprites) {
+        for (var cat in sprites) {
+          for (var sn in sprites[cat]) {
+            if (sprites[cat][sn]._c) delete sprites[cat][sn]._c;
           }
         }
+        window.FA.assets.spriteDefs = sprites;
       }
+      if (data.sheetDataUrl && window.FA.assets.spritesheet) {
+        window.FA.assets.spritesheet.src = data.sheetDataUrl;
+      }
+      if (data.sheetCols) window.FA.assets.sheetCols = data.sheetCols;
       return;
     }
 
     if (data.type === 'FA_MAP_UPDATE' && data.maps) {
-      window.FA_MAP_DATA = data.maps;
-      if (typeof MAP_DEFS !== 'undefined') {
-        for (var k in MAP_DEFS) delete MAP_DEFS[k];
-        for (var k in data.maps) MAP_DEFS[k] = data.maps[k];
-      }
+      window.FA.assets.mapDefs = data.maps;
       var evt = new CustomEvent('fa-map-update', { detail: data.maps });
       window.dispatchEvent(evt);
       return;
