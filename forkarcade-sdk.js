@@ -58,11 +58,7 @@
     if (data.type === 'FA_SPRITES_UPDATE') {
       var sprites = data.sprites;
       if (sprites) {
-        for (var cat in sprites) {
-          for (var sn in sprites[cat]) {
-            if (sprites[cat][sn]._c) delete sprites[cat][sn]._c;
-          }
-        }
+        window.FA.clearSpriteCache(sprites);
         window.FA.assets.spriteDefs = sprites;
       }
       if (data.sheetDataUrl && window.FA.assets.spritesheet) {

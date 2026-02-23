@@ -11,6 +11,14 @@
   // ===== ASSET STORE =====
   FA.assets = { spriteDefs: null, spritesheet: null, sheetCols: 16, mapDefs: null };
 
+  FA.clearSpriteCache = function(defs) {
+    for (var cat in defs) {
+      for (var name in defs[cat]) {
+        if (defs[cat][name]._c) delete defs[cat][name]._c;
+      }
+    }
+  };
+
   // ===== EVENT BUS =====
 
   var _listeners = {};
